@@ -1,0 +1,102 @@
+<Window x:Class="RailwayTicket.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Стоимость проезда железнодорожным транспортом"
+        Height="380" Width="480"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- Основной контейнер с отступами -->
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <!-- Строка для полей ввода и группы комфортабельности -->
+            <RowDefinition Height="Auto"/>
+            <!-- Строка для результата -->
+            <RowDefinition Height="Auto"/>
+            <!-- Строка для кнопки Вычислить -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхний блок: поля ввода + RadioButton-группа -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <!-- Левая часть: поля ввода -->
+                <ColumnDefinition Width="*"/>
+                <!-- Правая часть: группа комфортабельности -->
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Поля ввода: расстояние и количество билетов -->
+            <StackPanel Grid.Column="0" Margin="0,0,12,0">
+
+                <!-- Поле: Расстояние -->
+                <Label Content="Расстояние (км):" Padding="0,0,0,2"/>
+                <TextBox x:Name="TxtDistance"
+                         Width="180" HorizontalAlignment="Left"
+                         Margin="0,0,0,10"
+                         ToolTip="Введите расстояние в километрах (целое положительное число)"/>
+
+                <!-- Поле: Количество билетов -->
+                <Label Content="Количество билетов:" Padding="0,0,0,2"/>
+                <TextBox x:Name="TxtTicketCount"
+                         Width="180" HorizontalAlignment="Left"
+                         ToolTip="Введите количество билетов (целое положительное число)"/>
+            </StackPanel>
+
+            <!-- GroupBox: Комфортабельность — тип вагона -->
+            <GroupBox Grid.Column="1"
+                      Header="Комфортабельность"
+                      Padding="8" VerticalAlignment="Top">
+                <StackPanel>
+                    <!-- Плацкарт: коэффициент 1.0 (100%) -->
+                    <RadioButton x:Name="RbPlatzkart"
+                                 Content="плацкарт"
+                                 Margin="0,4,0,4"
+                                 IsChecked="True"
+                                 GroupName="ComfortGroup"
+                                 ToolTip="Базовая стоимость (×1.0)"/>
+                    <!-- Купе: коэффициент 1.1 (+10%) -->
+                    <RadioButton x:Name="RbCoupe"
+                                 Content="купе"
+                                 Margin="0,4,0,4"
+                                 GroupName="ComfortGroup"
+                                 ToolTip="Стоимость увеличивается на 10% (×1.1)"/>
+                    <!-- Полулюкс: коэффициент 1.2 (+20%) -->
+                    <RadioButton x:Name="RbSemiLux"
+                                 Content="полулюкс"
+                                 Margin="0,4,0,4"
+                                 GroupName="ComfortGroup"
+                                 ToolTip="Стоимость увеличивается на 20% (×1.2)"/>
+                    <!-- Люкс: коэффициент 1.3 (+30%) -->
+                    <RadioButton x:Name="RbLux"
+                                 Content="люкс"
+                                 Margin="0,4,0,4"
+                                 GroupName="ComfortGroup"
+                                 ToolTip="Стоимость увеличивается на 30% (×1.3)"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+
+        <!-- Блок отображения результата -->
+        <StackPanel Grid.Row="1" Margin="0,0,0,12">
+            <Label Content="Стоимость билетов с учётом комфортабельности:"
+                   Padding="0,0,0,2"/>
+            <!-- Поле результата: только для чтения -->
+            <TextBox x:Name="TxtResult"
+                     Width="220" HorizontalAlignment="Left"
+                     IsReadOnly="True"
+                     Background="#F0F0F0"
+                     FontWeight="Bold"
+                     ToolTip="Итоговая стоимость в рублях"/>
+        </StackPanel>
+
+        <!-- Кнопка запуска расчёта -->
+        <Button Grid.Row="2"
+                x:Name="BtnCalculate"
+                Content="Вычислить"
+                Width="100" HorizontalAlignment="Right"
+                Padding="8,4"
+                Click="BtnCalculate_Click"
+                ToolTip="Нажмите для расчёта стоимости проезда"/>
+    </Grid>
+</Window>
